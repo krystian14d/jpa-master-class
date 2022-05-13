@@ -19,8 +19,33 @@ public class JpaMasterClassApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(StudentRepository studentRepository) {
+    CommandLineRunner commandLineRunner(
+            StudentRepository studentRepository,
+            StudentIdCardRepository studentIdCardRepository) {
         return args -> {
+            Faker faker = new Faker();
+
+            String firstName = faker.name().firstName();
+            String lastName = faker.name().lastName();
+            String email = String.format("%s.%s@amigoscode.edu", firstName, lastName);
+            Student student = new Student(
+                    firstName,
+                    lastName,
+                    email,
+                    faker.number().numberBetween(17, 55));
+
+            StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
+
+
+            studentIdCardRepository.save(studentIdCard);
+
+            studentRepository.findById(1L)
+                            .ifPresent(System.out::println);
+
+            studentIdCardRepository.findById(1L)
+                    .ifPresent(System.out::println);
+
+            studentRepository.deleteById(1L);
 
         };
     }
@@ -37,7 +62,7 @@ public class JpaMasterClassApplication {
                     lastName,
                     email,
                     faker.number().numberBetween(17, 55));
-            
+
             studentRepository.save(student);
         }
     }

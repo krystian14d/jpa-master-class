@@ -2,10 +2,13 @@ package com.amigoscode.jpa;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,12 +20,15 @@ import javax.persistence.UniqueConstraint;
 
 @Getter
 @NoArgsConstructor
+@ToString
 @Entity(name = "StudentIdCard")
 @Table(
         name = "student_id_card",
         uniqueConstraints = {
-        @UniqueConstraint(name = "student_id_card_number_unique",
-                columnNames = "card_number")
+                @UniqueConstraint(name = "student_id_card_number_unique",
+                        columnNames = "card_number"
+                )
+        }
 )
 public class StudentIdCard {
 
@@ -48,14 +54,25 @@ public class StudentIdCard {
     )
     private String cardNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
     @JoinColumn(
             name = "student_id",
-            referencedColumnName = "id"
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "student_id_fk"
+            )
     )
     private Student student;
 
     public StudentIdCard(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public StudentIdCard(String cardNumber, Student student) {
+        this.cardNumber = cardNumber;
+        this.student = student;
     }
 }
