@@ -42,6 +42,11 @@ public class Book {
     private Long id;
 
     @Column(
+            name = "book_name",
+            nullable = false
+    )
+    private String bookName;
+    @Column(
             name = "created_at",
             nullable = false,
             columnDefinition = "TIMESTAMP WITHOUT TIME ZONE"
@@ -59,14 +64,8 @@ public class Book {
     )
     private Student student;
 
-    @Column(
-            name = "book_name",
-            nullable = false
-    )
-    private String bookName;
-
-    public Book(LocalDateTime createdAt, Student student) {
+    public Book(String bookName, LocalDateTime createdAt) {
+        this.bookName = bookName;
         this.createdAt = createdAt;
-        this.student = student;
     }
 }
