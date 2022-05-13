@@ -20,7 +20,6 @@ import javax.persistence.UniqueConstraint;
 
 @Getter
 @NoArgsConstructor
-@ToString
 @Entity(name = "StudentIdCard")
 @Table(
         name = "student_id_card",
@@ -74,5 +73,14 @@ public class StudentIdCard {
     public StudentIdCard(String cardNumber, Student student) {
         this.cardNumber = cardNumber;
         this.student = student;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentIdCard{" +
+                "id=" + id +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", student=" + student +
+                '}';
     }
 }

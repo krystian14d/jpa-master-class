@@ -18,7 +18,6 @@ import javax.persistence.UniqueConstraint;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @Entity(name = "Student")
 @Table(
@@ -83,5 +82,16 @@ public class Student {
         this.lastName = lastName;
         this.email = email;
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
