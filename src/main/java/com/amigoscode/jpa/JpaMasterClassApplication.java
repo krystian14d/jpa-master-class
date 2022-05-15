@@ -35,15 +35,20 @@ public class JpaMasterClassApplication {
                     email,
                     faker.number().numberBetween(17, 55));
 
-            StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
-
             student.addBook(new Book("Clean code", LocalDateTime.now().minusDays(4)));
 
             student.addBook(new Book("Think and grow rich", LocalDateTime.now()));
 
             student.addBook(new Book("Spring Data JPA", LocalDateTime.now().minusYears(1)));
 
+            StudentIdCard studentIdCard = new StudentIdCard("123456789", student);
+
             student.setStudentIdCard(studentIdCard);
+
+            student.enrolToCourse(new Course("Computer Science", "IT"));
+            student.enrolToCourse(new Course("Amigoscode Spring Data JPA", "IT"));
+
+
 
             studentRepository.save(student);
 

@@ -127,6 +127,16 @@ public class Student {
         }
     }
 
+    public void enrolToCourse(Course course){
+        courses.add(course);
+        course.getStudents().add(this);
+    }
+
+    public void unEnrolToCourse(Course course){
+        courses.remove(course);
+        course.getStudents().remove(this);
+    }
+
     public Student(String firstName, String lastName, String email, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
